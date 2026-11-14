@@ -53,7 +53,7 @@ Reference numbers (default farm: Sorriso, MT, -12.55 / -55.72; soybean -> second
 - **Notes (about 20 s):** "This is what we have shown. This is what we hope for and have not tested." Read the limits strip aloud in summary form.
 
 ## Slide 7 - Better Decisions Today. More Resilient Farms Tomorrow.
-- **On-slide text:** closing line "NASA helps us understand our changing planet. RotaTerra helps farmers explore what to do next."; future work chips (more regions, more crops, GPM IMERG, SMAP soil moisture, Penman-Monteith, validation with agronomists / Embrapa); links `<REPO URL>`, `<DEPLOY URL>` (placeholders); references; AI-use line; non-endorsement line.
+- **On-slide text:** closing line "NASA helps us understand our changing planet. RotaTerra helps farmers explore what to do next."; future work chips (more regions, more crops, GPM IMERG, SMAP soil moisture, Penman-Monteith, validation with agronomists / Embrapa); links `https://github.com/GuilhermeAntunes15/Nasa`, `<DEPLOY URL>` (placeholders); references; AI-use line; non-endorsement line.
 - **Visual:** typographic.
 - **Sources:** `docs/LIMITATIONS_AND_FUTURE_WORK.md` "Future work"; `docs/AI_USAGE.md`; README disclaimer.
 - **Notes (about 15 s):** Name the next step as validation with agronomists. Finish on the closing line and stop. **Replace the placeholders before presenting.** No NASA or Space Apps logo is used.

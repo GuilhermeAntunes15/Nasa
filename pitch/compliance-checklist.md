@@ -27,7 +27,7 @@ Only rules known from the project brief are marked as known. Everything else is 
 - [ ] Rules for use of NASA names, the Space Apps name and logos in submissions and videos.
 
 ## Before submitting
-- [ ] Deploy the app; replace `<DEPLOY URL>` and `<REPO URL>` in `deck/index.html`, all pitch files, README and docs.
+- [ ] Deploy the app; replace `<DEPLOY URL>` in `deck/index.html`, all pitch files, README and docs.
 - [ ] Re-run `npm test`, `npm run lint`, `npm run build` on the final code.
 - [ ] Re-check numbers on the deployed app against `docs/DEMO_WALKTHROUGH.md`.
 - [ ] Complete the human review checklist in `docs/AI_USAGE.md`.

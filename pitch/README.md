@@ -1,6 +1,6 @@
 # RotaTerra - pitch package (NASA Space Apps Challenge 2026, "Field Shift")
 
-All pitch material is in English. Placeholders `<REPO URL>` and `<DEPLOY URL>` must be replaced before use.
+All pitch material is in English. Placeholder `<DEPLOY URL>` must be replaced before use.
 
 | File | Content |
 |---|---|

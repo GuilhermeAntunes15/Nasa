@@ -2,7 +2,7 @@
 
 The exact fields of the 2026 Space Apps project submission form were **not verified**. Check the official Project Submission Guide and adapt the sections below. Replace the placeholders before submitting.
 
-- Repository: `<REPO URL>`
+- Repository: `https://github.com/GuilhermeAntunes15/Nasa`
 - Live demo: `<DEPLOY URL>`
 - Scope: see the [Implemented / Conceptual table in the README](../README.md#implemented--conceptual-not-implemented).
 
@@ -42,7 +42,7 @@ Claude Code AI agents under human direction planned, coded, tested, designed, re
 
 ## Links
 
-- Repository: `<REPO URL>`
+- Repository: `https://github.com/GuilhermeAntunes15/Nasa`
 - Live demo: `<DEPLOY URL>`
 - Demo script: [DEMO_WALKTHROUGH](DEMO_WALKTHROUGH.md)
 - Limitations: [LIMITATIONS_AND_FUTURE_WORK](LIMITATIONS_AND_FUTURE_WORK.md)
