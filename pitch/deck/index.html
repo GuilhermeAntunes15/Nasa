@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>RotaTerra - NASA Space Apps Challenge 2026 pitch</title>
+<!-- Fonts: Google Fonts only; falls back to Georgia / system sans if offline. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ---------- Tokens (edit here) ---------- */
+:root{
+  --navy:#081B2C; --green:#176B57; --sage:#A8C9B3; --cream:#F5F4ED; --sky:#5EA8D1;
+  --ink:#081B2C; --muted:#4a5b69;            /* text on cream */
+  --muted-d:#b9c7d1;                         /* text on navy */
+  --display:"Fraunces",Georgia,serif;
+  --body:"IBM Plex Sans",system-ui,sans-serif;
+  /* type scale: 4 sizes */
+  --t-h1:clamp(1.8rem,min(4.4vw,8vh),4.2rem);
+  --t-h2:clamp(1rem,min(1.7vw,2.8vh),1.5rem);
+  --t-body:clamp(.82rem,min(1.2vw,2vh),1.1rem);
+  --t-small:clamp(.7rem,min(.9vw,1.6vh),.85rem);
+  --pad:clamp(1.2rem,4.5vw,4.5rem);
+  --gap:clamp(.6rem,min(2vw,2.4vh),2rem);
+}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;overflow:hidden;background:var(--navy);font-family:var(--body);color:var(--ink)}
+h1,h2,h3{font-family:var(--display);font-weight:600;line-height:1.05;letter-spacing:-.01em}
+h1{font-size:var(--t-h1);text-wrap:balance} h2{font-size:var(--t-h2)}
+p,li{font-size:var(--t-body);line-height:1.45}
+.small{font-size:var(--t-small);line-height:1.4}
+
+/* ---------- Slides: one visible at a time, each fits the viewport ---------- */
+.slide{position:absolute;inset:0;height:100vh;height:100dvh;overflow:hidden;padding:min(var(--pad),5vh) var(--pad);
+  display:grid;align-content:center;gap:var(--gap);opacity:0;visibility:hidden;transition:opacity .15s ease,visibility 0s .15s}
+.slide.active{opacity:1;visibility:visible;z-index:1;transition:opacity .25s ease .15s,visibility 0s .15s}
+.dark{background:var(--navy);color:var(--cream)} .dark p,.dark li{color:var(--muted-d)}
+.light{background:var(--cream)} .light p,.light li{color:var(--muted)}
+.kicker{font-size:var(--t-small);letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--green)}
+.dark .kicker{color:var(--sage)}
+.em{color:var(--green)} .dark .em{color:var(--sage)}
+.src{font-size:var(--t-small);opacity:.8}
+.dark .src{color:var(--muted-d)} .light .src{color:var(--muted)}
+
+/* reveal: short, functional fade-up when a slide becomes active */
+.slide .r{opacity:0;transform:translateY(10px);transition:opacity .45s ease,transform .45s ease}
+.slide.active .r{opacity:1;transform:none}
+.slide.active .r:nth-child(2){transition-delay:.08s}.slide.active .r:nth-child(3){transition-delay:.16s}
+.slide.active .r:nth-child(4){transition-delay:.24s}.slide.active .r:nth-child(5){transition-delay:.32s}
+
+/* ---------- Real-screenshot crop: --x/--y/--cw/--ch are original pixels of a 1425px-wide capture ---------- */
+.crop{position:relative;overflow:hidden;aspect-ratio:var(--cw)/var(--ch);width:100%;background:#fff;
+  border:1px solid rgba(8,27,44,.18);border-radius:4px;box-shadow:0 18px 40px -20px rgba(0,0,0,.45)}
+.crop img{display:block;width:calc(1425/var(--cw)*100%);max-width:none;
+  margin-left:calc(var(--x)/var(--cw)*-100%);margin-top:calc(var(--y)/var(--cw)*-100%)}
+.fig{display:grid;gap:.5rem;align-content:center;min-height:0}
+.fig .crop{width:min(100%,calc(var(--mh,50vh)*var(--cw)/var(--ch)));justify-self:center}
+.fig{min-width:0}
+
+/* ---------- Layouts ---------- */
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);align-items:center;column-gap:calc(var(--gap)*2)}
+.stack{display:grid;gap:var(--gap);align-content:center}
+.big{display:block;font-family:var(--display);font-size:clamp(1.6rem,min(3.6vw,6vh),3.2rem);line-height:1;color:var(--sage)}
+.light .big{color:var(--green)}
+
+/* slide 1 */
+.stat{display:flex;gap:1.6rem;align-items:baseline;flex-wrap:wrap}
+.stat b{display:block;font-family:var(--display);font-size:clamp(1.8rem,min(4vw,7vh),3.6rem);font-weight:600;line-height:1;color:var(--cream)}
+.stat span{font-size:var(--t-small);color:var(--muted-d)}
+.stat .arrow{font-family:var(--display);font-size:2rem;color:var(--sky)}
+
+/* chips */
+.chips{display:flex;flex-wrap:wrap;gap:.4rem}
+.chip{font-size:var(--t-small);font-weight:600;padding:.25em .7em;border-radius:99px;border:1px solid currentColor;white-space:nowrap}
+.c-nasa{background:var(--navy);color:var(--cream);border-color:var(--navy)}
+.c-farm{color:var(--green)} .c-pub{color:#5b4a14;border-color:#b9a04a;background:#f4ecc9}
+.c-model{color:var(--cream);background:var(--green);border-color:var(--green)}
+.c-scen{color:var(--navy);border-style:dashed;background:#dcecf5}
+
+/* slide 3 journey */
+.steps{list-style:none;padding:0;display:grid;gap:.9rem;counter-reset:s}
+.steps li{display:grid;grid-template-columns:2.2rem 1fr;gap:.2rem .8rem;align-items:baseline;counter-increment:s}
+.steps li::before{content:counter(s);font-family:var(--display);font-size:1.5rem;color:var(--green);grid-row:span 2}
+.steps b{font-family:var(--display);font-size:var(--t-h2);color:var(--ink);font-weight:600}
+.steps span{font-size:var(--t-small);color:var(--muted)}
+
+/* slide 4 diagram */
+.flow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;align-items:stretch}
+.node{position:relative;padding:1rem .9rem 1rem 1rem;border-top:3px solid var(--green);background:#fff;margin-right:1.1rem;display:grid;gap:.5rem;align-content:start}
+.node:last-child{margin-right:0}
+.node:not(:last-child)::after{content:"";position:absolute;right:-1.1rem;top:-3px;width:1.1rem;height:3px;background:var(--green)}
+.node:not(:last-child)::before{content:"";position:absolute;right:-1.1rem;top:-7px;border:5.5px solid transparent;border-left:7px solid var(--green);border-right:0}
+.node{display:flex;flex-direction:column}.node .chips{margin-top:auto;padding-top:.4rem}
+.node h3{font-size:var(--t-h2)} .node p{font-size:calc(var(--t-small)*1.15);color:var(--muted)}
+.node .n{font-size:var(--t-small);font-weight:600;color:var(--green);letter-spacing:.1em}
+.legend{display:flex;flex-wrap:wrap;gap:.5rem 1rem;align-items:center}
+
+/* slide 5 numbers */
+table{border-collapse:collapse;width:100%;font-size:var(--t-body)}
+th{font-size:var(--t-small);text-align:left;color:var(--muted-d);font-weight:500;padding:.3rem .5rem;border-bottom:1px solid rgba(255,255,255,.25)}
+td{padding:.55rem .5rem;border-bottom:1px solid rgba(255,255,255,.12);color:var(--cream)}
+td:first-child{color:var(--muted-d);font-size:var(--t-small)}
+td b{font-family:var(--display);font-size:1.35em;color:var(--sage);font-weight:600}
+.demo{display:flex;flex-wrap:wrap;gap:.4rem .6rem;align-items:center}
+.demo span{font-size:var(--t-small);padding:.2em .6em;border:1px solid rgba(255,255,255,.3);border-radius:3px;color:var(--cream)}
+.note{border-left:3px solid var(--sky);padding-left:.8rem;color:var(--cream)!important}
+
+/* slide 6 */
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:calc(var(--gap)*1.5)}
+.col{padding:1.1rem 1.2rem;display:grid;gap:.6rem;align-content:start}
+.col.yes{background:#fff;border-top:4px solid var(--green)}
+.col.maybe{border:2px dashed #8a9aa6;background:transparent;padding-top:calc(1.1rem + 2px)}.col li{font-size:calc(var(--t-body)*1.1)}
+.col ul{padding-left:1.1rem;display:grid;gap:.35rem}
+.col h3{font-size:var(--t-h2)}
+.limits{background:var(--navy);color:var(--cream);padding:.9rem 1.2rem}
+.limits p{color:var(--muted-d);font-size:calc(var(--t-small)*1.1)} .limits b{color:var(--sage)}
+
+/* slide 7 */
+.quote{font-family:var(--display);font-size:clamp(1.3rem,min(2.9vw,5vh),2.6rem);line-height:1.15;color:var(--cream);max-width:24ch}
+.quote em{font-style:normal;color:var(--sage)}
+.roadmap{display:flex;flex-wrap:wrap;gap:.5rem}
+.roadmap span{font-size:var(--t-small);padding:.3em .8em;border:1px solid rgba(255,255,255,.35);border-radius:3px;color:var(--cream)}
+.refs{font-size:var(--t-small);color:var(--muted-d);display:grid;gap:.2rem}
+.refs a{color:var(--sky)}
+
+/* chrome */
+.progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--sky);z-index:9;transition:width .3s}
+.dots{position:fixed;right:.9rem;top:50%;transform:translateY(-50%);display:grid;gap:.6rem;z-index:9}
+.dots button{width:10px;height:10px;border-radius:50%;border:1.5px solid var(--sky);background:transparent;padding:0;cursor:pointer}
+.dots button[aria-current="true"]{background:var(--sky)}
+.count{position:fixed;left:var(--pad);bottom:.7rem;font-size:var(--t-small);z-index:9;color:var(--sky);opacity:.9}
+:focus-visible{outline:2px solid var(--sky);outline-offset:3px}
+
+/* ---------- Height & width breakpoints ---------- */
+@media (max-height:700px){:root{--pad:clamp(1rem,3vw,2.2rem);--gap:.7rem} .steps{gap:.5rem}}
+@media (max-height:560px){.node p{display:none}}
+@media (max-width:860px){
+  /* narrow screens: stack columns; allow scroll inside a slide rather than clipping */
+  .slide{overflow-y:auto;align-content:start}
+  .two,.cols{grid-template-columns:1fr}
+  .flow{grid-template-columns:1fr;gap:.6rem}.node{margin-right:0}.node::before,.node::after{display:none}
+  .fig .crop{width:100%}.dots{display:none}
+}
+@media (prefers-reduced-motion:reduce){.slide,.slide .r,.progress{transition:none}}
+@media print{html,body{overflow:visible}.slide{position:relative;opacity:1;visibility:visible;page-break-after:always;height:auto;min-height:100vh}.dots,.progress,.count{display:none}.slide .r{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="progress" id="bar"></div>
+<nav class="dots" id="dots" aria-label="Slides"></nav>
+<div class="count" id="count" aria-live="polite"></div>
+
+<main id="deck">
+
+<!-- 1 -->
+<section class="slide dark active" aria-label="Slide 1">
+  <div class="two">
+    <div class="stack">
+      <p class="kicker r">RotaTerra &middot; NASA Space Apps Challenge 2026 &middot; Field Shift</p>
+      <h1 class="r" style="text-wrap:balance">Farming in an Unpredictable Climate</h1>
+      <div class="stat r">
+        <div><b>645 mm</b><span>annual rain, 2015</span></div>
+        <div class="arrow" aria-hidden="true">&rarr;</div>
+        <div><b>1,903 mm</b><span>annual rain, 2018</span></div>
+      </div>
+      <p class="r">Same farm, Sorriso, Mato Grosso. What follows the soybean changes how exposed that farm is to the next dry spell.</p>
+      <p class="src r">Source: NASA POWER Daily, point -12.55, -55.72. Real screenshot from the RotaTerra Climate page.</p>
+    </div>
+    <div class="fig r">
+      <div class="crop" style="--x:168;--y:285;--cw:540;--ch:352;--mh:60vh"><img src="assets/climate-desktop.png" alt="Bar chart of annual rainfall at Sorriso from 2015 to 2025, ranging from about 645 mm to 1903 mm, from NASA POWER data"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="slide light" aria-label="Slide 2">
+  <div class="two">
+    <div class="stack">
+      <p class="kicker r">Earth observations &rarr; decisions</p>
+      <h1 class="r" style="font-size:clamp(1.8rem,min(4vw,6.8vh),3.6rem)">NASA Sees the Patterns. Farmers Need the Answers.</h1>
+      <div class="r"><span class="big">4,018 days</span>
+        <p>of daily rainfall and temperature, 2015&ndash;2025, from NASA POWER (built on the MERRA-2 reanalysis).</p></div>
+      <p class="r"><b style="color:var(--ink)">Honest scale:</b> grid of roughly 50 km. An estimate for the area around the farm, not a measurement on it.</p>
+      <div class="chips r"><span class="chip c-nasa">T2M</span><span class="chip c-nasa">T2M_MAX</span><span class="chip c-nasa">T2M_MIN</span><span class="chip c-nasa">PRECTOTCORR</span></div>
+    </div>
+    <div class="fig r">
+      <div class="crop" style="--x:168;--y:1463;--cw:700;--ch:205;--mh:30vh"><img src="assets/simulator-desktop.png" alt="RotaTerra data provenance card showing the NASA POWER endpoint, coordinates, period, retrieval date and acknowledgment"></div>
+      <p class="src">The gap is not data. It is the step from data to a decision. Provenance is on every screen. Real screenshot.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 3 -->
+<section class="slide light" aria-label="Slide 3">
+  <div class="two" style="grid-template-columns:minmax(0,.85fr) minmax(0,1.3fr)">
+    <div class="stack">
+      <p class="kicker r">Smarter crop rotations. Stronger farms.</p>
+      <h1 class="r" style="font-size:clamp(1.8rem,min(4.4vw,7.5vh),4rem)">Introducing RotaTerra</h1>
+      <ol class="steps r">
+        <li><b>Select a farm</b><span>Map click or coordinates, plus soil and priority</span></li>
+        <li><b>Understand climate conditions</b><span>Eleven years of NASA POWER charts</span></li>
+        <li><b>Compare rotations</b><span>Three strategies, five indicators</span></li>
+        <li><b>Test scenarios</b><span>Hypothetical rainfall and temperature changes</span></li>
+        <li><b>Explore a decision</b><span>&ldquo;Why this result?&rdquo; shows every rule and source</span></li>
+      </ol>
+    </div>
+    <div class="fig r">
+      <div class="crop" style="--x:165;--y:283;--cw:1110;--ch:852;--mh:66vh"><img src="assets/simulator-desktop.png" alt="RotaTerra rotation comparison: Current, Alternative A and Alternative B cards with five indicators and an exploratory index"></div>
+      <p class="src">Rotations screen, default farm. Exploratory decision support, not a yield or weather forecast.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 4 -->
+<section class="slide light" aria-label="Slide 4">
+  <div class="stack">
+    <p class="kicker r">How the numbers are made</p>
+    <h1 class="r" style="font-size:clamp(1.6rem,min(3.6vw,6.1vh),3.2rem)">From Earth Observations to Farming Decisions</h1>
+  </div>
+  <div class="flow r">
+    <div class="node"><span class="n">01</span><h3>NASA Earth Observations</h3><p>NASA POWER: daily rain and air temperature, 2015&ndash;2025.</p><div class="chips"><span class="chip c-nasa">NASA POWER data</span></div></div>
+    <div class="node"><span class="n">02</span><h3>Climate Indicators</h3><p>How much water the air pulls from a crop each day (evapotranspiration, Hargreaves&ndash;Samani).</p><div class="chips"><span class="chip c-model">Model-derived</span></div></div>
+    <div class="node"><span class="n">03</span><h3>Farm and Crop Data</h3><p>Your soil, sequence and priority, plus FAO crop parameters.</p><div class="chips"><span class="chip c-farm">Farmer-provided</span><span class="chip c-pub">Published</span></div></div>
+    <div class="node"><span class="n">04</span><h3>Rotation Comparison</h3><p>Daily soil-water balance over 10 seasons for 3 rotations, scored on 5 indicators.</p><div class="chips"><span class="chip c-model">Model-derived</span></div></div>
+    <div class="node"><span class="n">05</span><h3>Decision Insights</h3><p>Exploratory index with its weights, &ldquo;Why this result?&rdquo;, and scenario tests.</p><div class="chips"><span class="chip c-scen">Hypothetical scenario</span></div></div>
+  </div>
+  <div class="legend r small">
+    <b style="color:var(--ink)">Every number is labelled as one of five types:</b>
+    <span class="chip c-nasa">NASA POWER data</span><span class="chip c-farm">Farmer-provided</span><span class="chip c-pub">Published crop data</span><span class="chip c-model">Model-derived indicator</span><span class="chip c-scen">Hypothetical scenario</span>
+  </div>
+</section>
+
+<!-- 5 -->
+<section class="slide dark" aria-label="Slide 5">
+  <div class="stack">
+    <p class="kicker r">Live demonstration</p>
+    <h1 class="r" style="font-size:clamp(1.7rem,min(4vw,6.8vh),3.6rem)">One Farm. Three Strategies. Different Futures.</h1>
+    <div class="demo r"><span>Sorriso, Mato Grosso</span><span>NASA POWER 2015&ndash;2025</span><span>Soybean &rarr; maize, clayey, rain-fed</span><span>Priority: water</span><span>Scenario: &minus;20% rainfall</span></div>
+  </div>
+  <div class="two" style="grid-template-columns:minmax(0,1.2fr) minmax(0,1fr)">
+    <div class="stack">
+      <table class="r">
+        <thead><tr><th></th><th>Current</th><th>A: Soil cover</th><th>B: Diversified</th></tr></thead>
+        <tbody>
+          <tr><td>Exploratory index, baseline</td><td><b>82</b></td><td><b>91</b></td><td><b>91</b></td></tr>
+          <tr><td>Index at &minus;20% rain</td><td><b>81</b></td><td><b>89</b></td><td><b>90</b></td></tr>
+          <tr><td>Water-demand exposure, baseline &rarr; &minus;20%</td><td>6.7 &rarr; 9.5%</td><td>6.7 &rarr; 9.5%</td><td>6.2 &rarr; 8.9%</td></tr>
+          <tr><td>Soil cover (days per season)</td><td>204</td><td>301</td><td>253</td></tr>
+        </tbody>
+      </table>
+      <p class="note small r">A ties Current on water by design: each season restarts from an empty root zone and crop residue is not modelled. The &minus;20% effect on the index is small (about &minus;1.5 points), but traceable and measurable.</p>
+      <p class="src r">Outputs of the app on real NASA POWER data (v2.10.3). Hypothetical scenario, not a forecast.</p>
+    </div>
+    <div class="fig r">
+      <div class="crop" style="--x:168;--y:523;--cw:1103;--ch:565;--mh:44vh"><img src="assets/scenarios-desktop.png" alt="RotaTerra Scenario Lab with minus 20 percent rainfall: baseline versus scenario values for the three rotations"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 -->
+<section class="slide light" aria-label="Slide 6">
+  <div class="stack">
+    <p class="kicker r">What we show, and what we do not</p>
+    <h1 class="r" style="font-size:clamp(1.7rem,min(3.8vw,6.5vh),3.4rem)">Turning Data into Resilience</h1>
+  </div>
+  <div class="cols r">
+    <div class="col yes">
+      <p class="kicker">Demonstrated today</p>
+      <ul>
+        <li>Real NASA POWER data with provenance on screen</li>
+        <li>Transparent FAO-56 comparison of three rotations</li>
+        <li>Scenario tests that recalculate every indicator</li>
+        <li>&ldquo;Why this result?&rdquo; traces numbers to sources</li>
+      </ul>
+    </div>
+    <div class="col maybe">
+      <p class="kicker" style="color:var(--muted)">Potential, not yet tested</p>
+      <ul>
+        <li>Seasonal planning and climate-risk conversations</li>
+        <li>Clearer water trade-offs between rotations</li>
+        <li>Easier access to Earth science for farmers</li>
+        <li>A shared starting point for farmer&ndash;agronomist talks</li>
+      </ul>
+    </div>
+  </div>
+  <div class="limits r">
+    <p><b>Limits, said out loud.</b> Reanalysis at about 50 km, not measured at the farm &middot; 10 seasons only &middot; Mato Grosso calendar &middot; ruzigrass Kc is a proxy &middot; no field validation &middot; no pests, markets or CO&#8322; &middot; indicators are relative and exploratory &middot; scenarios are hypothetical, not forecasts.</p>
+  </div>
+</section>
+
+<!-- 7 -->
+<section class="slide dark" aria-label="Slide 7">
+  <div class="stack">
+    <p class="kicker r">Next</p>
+    <h1 class="r" style="font-size:clamp(1.7rem,min(3.8vw,6.5vh),3.4rem)">Better Decisions Today. More Resilient Farms Tomorrow.</h1>
+  </div>
+  <div class="two">
+    <div class="stack">
+      <p class="quote r">NASA helps us understand our changing planet. <em>RotaTerra helps farmers explore what to do next.</em></p>
+    </div>
+    <div class="stack">
+      <p class="small r" style="color:var(--sage)">Where it could go (future work, not built)</p>
+      <div class="roadmap r"><span>More regions</span><span>More crops</span><span>GPM IMERG</span><span>SMAP soil moisture</span><span>Penman&ndash;Monteith</span><span>Validation with agronomists / Embrapa</span></div>
+      <div class="refs r">
+        <span>Repository: &lt;REPO URL&gt; &nbsp;&middot;&nbsp; Live demo: &lt;DEPLOY URL&gt;</span>
+        <span>Data: NASA POWER (power.larc.nasa.gov) &middot; FAO-56 (Allen et al., 1998) &middot; FAO-66/FAO-33 &middot; FAO ECOCROP</span>
+        <span>Map: OpenFreeMap, &copy; OpenMapTiles, &copy; OpenStreetMap contributors</span>
+        <span>Built with AI agents (Claude Code) under human direction; no generative AI in the product.</span>
+        <span>Independent project, not endorsed by or affiliated with NASA.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+/* Navigation: arrows, space, PageUp/Down, Home/End, wheel, swipe, dots, #hash. */
+(function(){
+  const slides=[...document.querySelectorAll('.slide')],dots=document.getElementById('dots'),
+        bar=document.getElementById('bar'),count=document.getElementById('count');
+  let i=0,lock=false;
+  slides.forEach((_,n)=>{const b=document.createElement('button');b.setAttribute('aria-label','Go to slide '+(n+1));b.onclick=()=>go(n);dots.appendChild(b)});
+  function go(n){
+    n=Math.max(0,Math.min(slides.length-1,n));i=n;
+    slides.forEach((s,k)=>{s.classList.toggle('active',k===n);s.scrollTop=0});
+    [...dots.children].forEach((d,k)=>d.setAttribute('aria-current',k===n));
+    bar.style.width=((n+1)/slides.length*100)+'%';count.textContent=(n+1)+' / '+slides.length;
+    history.replaceState(null,'','#'+(n+1));
+  }
+  addEventListener('keydown',e=>{
+    if(['ArrowRight','ArrowDown','PageDown',' '].includes(e.key)){e.preventDefault();go(i+1)}
+    else if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();go(i-1)}
+    else if(e.key==='Home')go(0);else if(e.key==='End')go(slides.length-1);
+  });
+  addEventListener('wheel',e=>{ if(lock||Math.abs(e.deltaY)<30)return; lock=true;setTimeout(()=>lock=false,700); go(i+(e.deltaY>0?1:-1)); },{passive:true});
+  let x0=null;
+  addEventListener('touchstart',e=>x0=e.touches[0].clientX,{passive:true});
+  addEventListener('touchend',e=>{if(x0===null)return;const d=e.changedTouches[0].clientX-x0;if(Math.abs(d)>50)go(i+(d<0?1:-1));x0=null});
+  addEventListener('hashchange',()=>go((parseInt(location.hash.slice(1))||1)-1));
+  go((parseInt(location.hash.slice(1))||1)-1);
+})();
+</script>
+</body>
+</html>
