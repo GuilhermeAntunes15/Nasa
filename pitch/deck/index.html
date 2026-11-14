@@ -60,7 +60,7 @@ p,li{font-size:var(--t-body);line-height:1.45}
 .fig{min-width:0}
 
 /* ---------- Layouts ---------- */
-.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);align-items:center;column-gap:calc(var(--gap)*2)}
+.two{display:grid;grid-template-columns:var(--cols,minmax(0,1fr) minmax(0,1.15fr));align-items:center;column-gap:calc(var(--gap)*2)}
 .stack{display:grid;gap:var(--gap);align-content:center}
 .big{display:block;font-family:var(--display);font-size:clamp(1.6rem,min(3.6vw,6vh),3.2rem);line-height:1;color:var(--sage)}
 .light .big{color:var(--green)}
@@ -143,7 +143,7 @@ td b{font-family:var(--display);font-size:1.35em;color:var(--sage);font-weight:6
   .flow{grid-template-columns:1fr;gap:.6rem}.node{margin-right:0}.node::before,.node::after{display:none}
   .fig .crop{width:100%}.dots{display:none}
 }
-@media (prefers-reduced-motion:reduce){.slide,.slide .r,.progress{transition:none}}
+@media (prefers-reduced-motion:reduce){.slide,.slide.active,.slide .r,.progress{transition:none}}
 @media print{html,body{overflow:visible}.slide{position:relative;opacity:1;visibility:visible;page-break-after:always;height:auto;min-height:100vh}.dots,.progress,.count{display:none}.slide .r{opacity:1;transform:none}}
 </style>
 </head>
@@ -194,7 +194,7 @@ td b{font-family:var(--display);font-size:1.35em;color:var(--sage);font-weight:6
 
 <!-- 3 -->
 <section class="slide light" aria-label="Slide 3">
-  <div class="two" style="grid-template-columns:minmax(0,.85fr) minmax(0,1.3fr)">
+  <div class="two" style="--cols:minmax(0,.85fr) minmax(0,1.3fr)">
     <div class="stack">
       <p class="kicker r">Smarter crop rotations. Stronger farms.</p>
       <h1 class="r" style="font-size:clamp(1.8rem,min(4.4vw,7.5vh),4rem)">Introducing RotaTerra</h1>
@@ -239,7 +239,7 @@ td b{font-family:var(--display);font-size:1.35em;color:var(--sage);font-weight:6
     <h1 class="r" style="font-size:clamp(1.7rem,min(4vw,6.8vh),3.6rem)">One Farm. Three Strategies. Different Futures.</h1>
     <div class="demo r"><span>Sorriso, Mato Grosso</span><span>NASA POWER 2015&ndash;2025</span><span>Soybean &rarr; maize, clayey, rain-fed</span><span>Priority: water</span><span>Scenario: &minus;20% rainfall</span></div>
   </div>
-  <div class="two" style="grid-template-columns:minmax(0,1.2fr) minmax(0,1fr)">
+  <div class="two" style="--cols:minmax(0,1.2fr) minmax(0,1fr)">
     <div class="stack">
       <table class="r">
         <thead><tr><th></th><th>Current</th><th>A: Soil cover</th><th>B: Diversified</th></tr></thead>

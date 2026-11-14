@@ -43,3 +43,6 @@ next-env.d.ts
 # playwright mcp / QA artifacts
 /.playwright-mcp/
 /docs/screenshots/*-qa*.png
+
+# pitch verification screenshots (local only)
+/pitch/deck-check/
