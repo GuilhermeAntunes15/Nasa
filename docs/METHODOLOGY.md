@@ -179,7 +179,7 @@ Every input in "Why this result?" and every section of the app carries one of fi
 
 ## Numerical test cases
 
-All run with `npm test` (53 tests, files `src/lib/*.test.ts`). Synthetic fixtures are used only in tests.
+All run with `npm test` (53 + 8 tests, files `src/lib/*.test.ts`). Synthetic fixtures are used only in tests.
 
 | Area | Case | Expected |
 |---|---|---|

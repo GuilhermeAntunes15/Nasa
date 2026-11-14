@@ -1,5 +1,6 @@
 import { ArrowRightIcon } from "lucide-react";
 import Link from "next/link";
+import { HeroGlobe } from "@/components/hero-globe";
 import { buttonVariants } from "@/components/ui/button";
 
 // Center-pivot fields seen from orbit: [cx, cy, r, fill, slow arm].
@@ -16,9 +17,7 @@ function EarthArt() {
   return (
     <svg
       viewBox="0 0 480 480"
-      role="img"
-      aria-label="Stylised view of farmland from orbit: circular irrigated fields on a dark globe with a satellite orbiting it."
-      className="art-rise mx-auto w-full max-w-md lg:max-w-none"
+      className="art-rise w-full"
     >
       <defs>
         <clipPath id="globe">
@@ -103,7 +102,9 @@ export default function Home() {
             </Link>
           </div>
         </div>
-        <EarthArt />
+        <HeroGlobe>
+          <EarthArt />
+        </HeroGlobe>
       </section>
 
       <section aria-labelledby="challenge-title" className="grid gap-6 border-t pt-10 lg:grid-cols-[1fr_1.4fr] lg:gap-12">

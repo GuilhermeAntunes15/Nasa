@@ -18,6 +18,7 @@ import { ClimateGate } from "@/components/climate-status";
 import { climateSeries, climateTables, DataTable, SECOND_WINDOW, SOY_WINDOW, windowSentences } from "@/components/climate-tables";
 import { DataBadge } from "@/components/data-badge";
 import { ProvenanceCard } from "@/components/provenance-card";
+import { RainTerrain } from "@/components/rain-terrain";
 import { locationRegion } from "@/lib/simulate";
 import type { ClimateDaily, FarmProfile } from "@/lib/types";
 
@@ -79,6 +80,8 @@ function Charts({ daily, showSeasons }: { daily: ClimateDaily; showSeasons: bool
           <Line dataKey="precipMaxMm" name="Max" stroke="var(--chart-5)" strokeWidth={2} strokeDasharray="4 4" dot={false} />
         </ComposedChart>
       </ChartFigure>
+
+      <RainTerrain daily={daily} />
 
       <ChartFigure title="Monthly temperature" table={tables.temperature}>
         <LineChart data={series.normals}>

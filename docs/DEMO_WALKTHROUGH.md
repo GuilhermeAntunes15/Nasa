@@ -12,7 +12,7 @@ Start with `npm run dev` (or the deployed URL) and open `/`.
 
 **0:15 — Explore (`/explore`).** The map and the fields show the default point. Click **Load NASA climate data**. The "From NASA POWER" panel shows a mean annual rainfall of **1300 mm/yr** over 11 complete years and a mean air temperature of **26.3 °C**. Point out the provenance card: NASA POWER Daily API, community AG, API v2.10.3, sources MERRA2 and POWER, 0 missing days, the request URL and the acknowledgment. "From you" is the farmer's information, labelled separately. Click **View climate charts**.
 
-**0:40 — Climate (`/climate`).** Four charts, each with a data table. Annual rainfall ranges from 645 mm (2015) to 1903 mm (2018). The crop-window sentences read:
+**0:40 — Climate (`/climate`).** Four charts and a 3D month-by-year rainfall view, each with a data table. Annual rainfall ranges from 645 mm (2015) to 1903 mm (2018). The crop-window sentences read:
 - "Soybean window (1 Oct–23 Jan): median rainfall 640 mm over 10 seasons; driest season 2020/21 with 415 mm."
 - "Second-crop window (1 Feb–5 Jun): median rainfall 581 mm over 10 seasons; driest season 2015/16 with 261 mm."
 

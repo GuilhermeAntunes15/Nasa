@@ -34,7 +34,7 @@ This is the single source of truth for scope; the other documents link here.
 | Live NASA POWER Daily API request (T2M, T2M_MAX, T2M_MIN, PRECTOTCORR; 2015-01-01 to 2025-12-31; community AG) through `/api/power` | GPM IMERG precipitation and SMAP soil moisture (listed as future work, not integrated) |
 | Three cache layers (client promise cache, HTTP `Cache-Control`, Next.js fetch `revalidate`) and a stored NASA POWER snapshot used only for the default Sorriso (MT) point when the live service fails | Server-side rate limiting; snapshots for other locations |
 | Farm profile kept in the URL: current sequence (4 presets), soil texture, drainage, optional pH, irrigation, main priority | User accounts, saved farms, database |
-| Climate page: annual rainfall, monthly rainfall climatology, monthly temperature and crop-window rainfall charts, each with a data table | Climate projections (for example CMIP6); only the historical record is used |
+| Climate page: annual rainfall, monthly rainfall climatology, monthly temperature and crop-window rainfall charts and a 3D month-by-year rainfall view, each with a data table | Climate projections (for example CMIP6); only the historical record is used |
 | Daily FAO-56 model: Hargreaves–Samani ETo, Kc curves, soil-water balance with stress coefficient, optional refill irrigation | Penman–Monteith ETo; FAO-56 mulch / residue effects; soil-water carry-over between seasons; runoff and capillary rise |
 | Three rotations (Current, Alternative A "Soil cover & water", Alternative B "Diversification") with five scored indicators, practical flags and a weighted exploratory index | Free rotation builder; more crops (for example cotton, crotalaria) |
 | Fixed Mato Grosso calendar (soybean 1 Oct, second crop 1 Feb, ruzigrass until 10 Sep) | Editable soybean sowing date |
@@ -42,7 +42,7 @@ This is the single source of truth for scope; the other documents link here.
 | Scenario Lab: rainfall −30% to +20%, temperature −2 °C to +4 °C, presets "Historical baseline" and "−20% rainfall (demo)" | Yield, profit or economic estimates; pest, disease and nematode modelling |
 | Printable summary (browser print / Save as PDF) and a Science page with every formula and parameter | PDF generation library; translations (the app is English only) |
 | Region guard: full results in Mato Grosso, illustrative banner elsewhere in Brazil, no rotation results outside Brazil | Field validation of the model |
-| 53 Vitest unit tests for the model, parser, aggregation and URL state | End-to-end browser tests in the repository |
+| 53 Vitest unit tests for the model, parser, aggregation and URL state, plus 8 for the 3D rainfall view geometry | End-to-end browser tests in the repository |
 
 ## Requirements
 

@@ -1,11 +1,11 @@
 import { toAnnualPrecip, toMonthly, toMonthlyNormals, windowTotals } from "@/lib/climate";
 import type { ClimateDaily } from "@/lib/types";
 
-const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+export const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 export const SOY_WINDOW = { label: "Soybean window (1 Oct–23 Jan)", from: { month: 10, day: 1 }, to: { month: 1, day: 23 } };
 export const SECOND_WINDOW = { label: "Second-crop window (1 Feb–5 Jun)", from: { month: 2, day: 1 }, to: { month: 6, day: 5 } };
 
-const num = (x: number | null, digits = 0) => (x === null ? "—" : x.toFixed(digits));
+export const num = (x: number | null, digits = 0) => (x === null ? "—" : x.toFixed(digits));
 
 const median = (xs: number[]) => {
   const s = [...xs].sort((a, b) => a - b);

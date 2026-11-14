@@ -170,6 +170,15 @@
   box-shadow: 0 0 0 2px var(--color-navy), 0 2px 8px rgb(8 27 44 / 0.4);
 }
 
+.hero-pin {
+  width: 14px;
+  height: 14px;
+  border-radius: 9999px;
+  background: var(--color-forest);
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 5px rgb(255 255 255 / 0.25), 0 0 14px rgb(94 168 209 / 0.8);
+}
+
 /* Landing illustration: motion only when the user has not asked to reduce it */
 @media (prefers-reduced-motion: no-preference) {
   .art-orbit {

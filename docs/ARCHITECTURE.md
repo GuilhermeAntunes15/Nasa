@@ -45,6 +45,7 @@ All files are framework-free TypeScript with relative imports and a `*.test.ts` 
 | `agro.ts` | FAO-56 primitives: `extraterrestrialRadiation`, `hargreavesEto`, `kcOnDay`, `tawMm`, `waterBalanceDay`; `ecocropSuitability`. |
 | `crops.ts` | `CITATIONS`, `CROPS` catalogue (every number with citations and assumptions), `CURRENT_SEQUENCES`, `ALT_A`, `ALT_B`, `currentRotation`. |
 | `simulate.ts` | `WEIGHTS`, region boxes and `locationRegion`, `MODEL_ASSUMPTIONS`, per-season simulation, aggregation, `diversityScore`, flags, `simulateRotation`, `compareRotations`, `diffResults`. |
+| `terrain.ts` | 3D rainfall view geometry: `terrainGrid` (year × month grid, gaps kept as `null`), `clampView`, orthographic `project`, `rainColor`, `terrainScene` (visible faces in painter's order, axis ticks). |
 | `state.ts` | `DEFAULT_FARM`, `DEFAULT_SCENARIO`, slider ranges, `parseState` (clamping and enum fallbacks), `serializeState`. |
 | `utils.ts` | `cn` class-name helper from shadcn/ui. |
 
@@ -55,7 +56,8 @@ All files are framework-free TypeScript with relative imports and a `*.test.ts` 
 | `use-climate.ts` | Client hook: promise cache per rounded point, `idle / loading / error / data` states, `retry`. |
 | `climate-status.tsx` | `ClimateGate` (loading skeleton, error with "Try again", snapshot banner), `RegionGuard`, `NotEnoughSeasons`. |
 | `farm-form.tsx`, `farm-map.tsx` | Explore screen: map, coordinate fields, farm profile form, NASA summary. |
-| `climate-charts.tsx` | Climate screen: four Recharts charts. The only module that imports Recharts. |
+| `climate-charts.tsx` | Climate screen: four Recharts charts and the 3D rainfall view. The only module that imports Recharts. |
+| `rain-terrain.tsx` | 3D month-by-year rainfall view in plain SVG; no Recharts. |
 | `climate-tables.tsx` | Chart series, data tables and window sentences without Recharts; used by the climate screen and by `/summary`, so the summary bundle does not load Recharts. |
 | `rotation-comparison.tsx` | Rotations screen: three cards, trade-off wording vs Current, "highest index" label. |
 | `why-dialog.tsx` | "Why this result?" dialog, shared labels, limitations list. |
@@ -90,6 +92,7 @@ Keys: `lat`, `lon`, `seq`, `soil`, `drain`, `ph`, `irr`, `prio`, `dp`, `dt`. Inv
 | Snapshot as a JSON import | The route handler imports `data/power-snapshot.json`; it is bundled with the function and needs no file-system access. |
 | MapLibre loaded with `import()` inside `useEffect` | Keeps the map out of server rendering and out of other pages. The worker is served from `public/maplibre-gl-worker.mjs` (`setWorkerUrl`) because the bundled worker URL does not survive bundling; recopy it from `node_modules/maplibre-gl/dist/maplibre-gl-worker.mjs` when upgrading MapLibre. |
 | Recharts isolated in `climate-charts.tsx` | Tables and series live in `climate-tables.tsx`, so `/summary` (tables only) does not load Recharts. |
+| 3D rainfall view in plain SVG (orthographic projection + painter's order), no WebGL/three.js | One grid point has 132 monthly values; about 400 polygons need no 3D engine, print as vectors and add no dependency. |
 | Cache Components and React Compiler off | Not needed; keeps the App Router behaviour predictable. |
 | No Vitest config | `vitest run src` with defaults is enough for pure TypeScript modules. |
 
